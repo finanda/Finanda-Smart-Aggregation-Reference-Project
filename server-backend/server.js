@@ -12,7 +12,7 @@ app.use(express.static('../enduser-frontend'));
 const PORT = 5000;
 const FSA_API = 'https://localhost:443/';
 const NUMBER_OF_ITERATIONS = 5; // How much times to call jobStatus
-const INTERVAL = 500; // Time between each call to jobStatus (milliseconds)
+const INTERVAL = 5000; // Time between each call to jobStatus (milliseconds)
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // TODO before publish: Uncomment the lines below
