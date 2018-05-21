@@ -8,18 +8,10 @@ app.use(express.static('../enduser-frontend'));
 /* Server backend and API Settings   */
 /*************************************/
 
-// TODO before publish: Remove the lines below
 const PORT = 5000;
-const FSA_API = 'https://localhost:443/';
-const NUMBER_OF_ITERATIONS = 5; // How much times to call jobStatus
+const FSA_API = 'https://api.finanda.co.il:443/';
+const NUMBER_OF_ITERATIONS = 50; // How much times to call jobStatus
 const INTERVAL = 5000; // Time between each call to jobStatus (milliseconds)
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-// TODO before publish: Uncomment the lines below
-// const PORT = 5000;
-// const FSA_API = 'https://api.finanda.co.il:443/';
-// const NUMBER_OF_ITERATIONS = 50; // How much times to call jobStatus
-// const INTERVAL = 5000; // Time between each call to jobStatus (milliseconds)
 
 // Note: customerID and customerSecretKey should never be exposed to the enduser!
 const CUSTOMER_ID = 'TODO_FILL_CUSTOMER_ID';
