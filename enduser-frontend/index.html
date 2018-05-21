@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FSA Reference Project</title>
+    <link rel="shortcut icon" href="https://www.finanda.com/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="https://www.finanda.com/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdn.finanda.co.il/websites/css/style.css?v=fi24"/>
+    <link rel="stylesheet" href="public-assets/our.css?v=fi1"/>
+    <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body class="contact english">
+<div class="wrapper maincontent" style="margin-top: 20px;">
+    <div style="margin: 0 auto; text-align: center;">
+        <img class="color" src="https://cdn.finanda.co.il/websites/img/logo--finanda-inovations-new.svg" alt="Finanda Innovations"
+             width="150">
+    </div>
+    <section class="page-content page-content-2 pt20">
+        <div id="main" class="container our-left-aligned-text">
+            <h1>Finanda Smart Aggregation<br/><strong>Reference Project</strong></h1>
+            <p>This is a reference project that works against Finanda Smart Aggregation.</p>
+            <hr/>
+            <br/>
+
+            <section id="main_section" style="display: none">
+                <div id="institute_input">
+                    <span class="featured-content__label featured-content__label--gradient">Institute select</span>
+                    <br/>
+                    <label for="institutes_list">This list is automatically generated when the enduser enters this page,
+                        and fetched with your server function <strong>callGetCredentialsSchema</strong>.</label>
+                    <select id="institutes_list" class="form-control"></select>
+                    <hr/>
+                    <br/>
+                </div>
+                <div id="credentials_input" style="display: none">
+                    <span class="featured-content__label featured-content__label--gradient">User credentials</span>
+                    <br/>
+                    <label for="credentials_list">Please enter your bank/cc credentials</label>
+                    <div id="credentials_list" class="form__field-group">
+                        <!--This content will be updated dynamically when the user selects the desired institute above.-->
+                    </div>
+                    <br/>
+                    <p><strong>Note: </strong>You can add here more parameters which is optional for <strong>initiateJob</strong></p>
+                    <hr/>
+                    <br/>
+                </div>
+                <span class="featured-content__label featured-content__label--gradient">Call the API</span>
+                <p>Do some error checking and input validation (server/client side), and finally call your server function
+                    <strong>runJobAndDisplayResults</strong>.</p>
+                <input id="submit" name="j_id_1n" type="submit" value="Submit" class="contact-form__btn btn">
+                <hr/>
+                <br/>
+                <div id="results_output">
+                    <span class="featured-content__label featured-content__label--gradient">Job results</span>
+                    <br/>
+                    <label id="loading" for="credentials_list">This section will contain the results of the Job after you'll click on "Submit"</label>
+                    <div id="results_tables" class="table-responsive">
+                        <!--Dynamically added after "Submit" button is clicked-->
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </section>
+</div>
+<script src="public-assets/functions.js"></script>
+</body>
+</html>
