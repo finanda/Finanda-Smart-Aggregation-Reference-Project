@@ -32,17 +32,12 @@ Change accordingly with `CUSTOMER_ID` and `CUSTOMER_SECRET_KEY` you got from ste
 5. Open http://localhost:5000 in your browser.
 
 ### Recommended settings
-We strongly recommend that you use this settings (appear on `server-backend/server.js`):
+We strongly recommend using this settings: (appear on `server-backend/server.js`):
 ```javascript
 const PORT = 5000;
 const FSA_API = 'https://api.finanda.co.il:443/';
 const NUMBER_OF_ITERATIONS = 50; // How much times to call jobStatus
 const INTERVAL = 5000; // Time between each call to jobStatus (milliseconds)
-
-// Note: customerID and customerSecretKey should never be exposed to the enduser!
-const CUSTOMER_ID = 'TODO_FILL_CUSTOMER_ID';
-const CUSTOMER_SECRET_KEY = 'TODO_FILL_SECRET_KEY';
-const logProgress = false; // Set to true if you want to see a console log of the execution progress
 ```
 
 ### API Reference
