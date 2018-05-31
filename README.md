@@ -4,8 +4,9 @@ This Reference Project demonstrates how to use the Finanda Smart Aggregation API
 
 ## Introduction
 ### Terminology
-* Customer - an entity who uses FSA API
-* End user - a client of the entity who use some app provided by that entity
+* FSA - Acronym for Finanda Smart Aggregation
+* Customer - an entity that uses FSA API
+* End user - a client of the entity that uses some app provided by the entity 
 * Server Software - Software provided by the entity to service their users, this software uses the FSA API internally for some of the services it exposes to the end-users.
 * Client Software - Software provided by the entity that runs on a end-user’s machine, it provides the user-interface to the services the entity provides.
 
@@ -14,11 +15,11 @@ This Reference Project demonstrates how to use the Finanda Smart Aggregation API
 * Client Software - We implemented this reference project using standard HTML, CSS and Javascript using the jQuery library . Clearly, any software that can connect to a service provider can be used for this task - be it a native Windows or Mac software, Mobile or any Web technology.
 
 ### Workflow
-The End-user interface (enduser-frontend) are made from basic html form that will pass download credentials to the Customer’s server (server-backend).
+The End-user interface (enduser-frontend) is implemented using a basic html form. Download credentials are collected and sent to the Customer’s server (server-backend).
 
-server.js implements a simple http server (using Express) that accepts requests from the end-user and processes them before making an FSA API call: it will take the passed parameters (uid and pwd), prepare them using the customer-id and customer-secret-key and issue standard Finanda Smart Aggregation API calls to initiate jobs against the select financial institute. 
+server.js implements a simple http server (using Express), requests from the end-user are processed and the appropriate API calls are used. For example, the credentials parameters (user id, password etc..) are signed using the customer-id and customer-secret-key and sent to the FSA API calls to initiate jobs against the select financial institute.
 
-The code also demonstrates job results handling: checking for download job progress, finding out if it was a success or failure and what to do with the results (storing on DB or sending back to the end-user).
+The code demonstrates how to check for job results - checking for download job progress, finding out if the job succeeded and how to retrieve and handle the results (e.g. - storing to a database or sending the results back to the end-user).
 
 ## Getting Started
 
