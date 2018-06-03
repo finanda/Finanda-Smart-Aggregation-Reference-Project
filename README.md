@@ -11,8 +11,8 @@ This Reference Project demonstrates how to use the Finanda Smart Aggregation API
 * Client Software - Software provided by the entity that runs on a end-user’s machine, it provides the user-interface to the services the entity provides.
 
 ### Technology used
-* Server Software - We implemented this reference project using Node.JS and the Express library to service HTTP/HTTPS requests from the user interface. Clearly any technology that can perform standard HTTPS requests can be used to connect to the FSA API - be it Java, PHP or any other applicable technology.
-* Client Software - We implemented this reference project using standard HTML, CSS and Javascript using the jQuery library . Clearly, any software that can connect to a service provider can be used for this task - be it a native Windows or Mac software, Mobile or any Web technology.
+* Server Software - The reference project uses Node.JS and the Express library to service HTTP/HTTPS requests from the user interface. Clearly any technology that can perform standard HTTPS requests can be used to connect to the FSA API - be it Java, PHP or any other applicable technology.
+* Client Software - The reference project uses standard HTML, CSS and Javascript using the jQuery library . Clearly, any software that can connect to a service provider can be used for this task - be it a native Windows or Mac software, Mobile or any Web technology.
 
 ### Workflow
 The End-user interface (enduser-frontend) is implemented using a basic html form. Download credentials are collected and sent to the Customer’s server (server-backend).
