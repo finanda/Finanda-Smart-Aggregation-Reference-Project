@@ -10,7 +10,7 @@ app.use(express.static('../enduser-frontend'));
 
 const PORT = 5000;
 const FSA_API = 'https://api.finanda.co.il:443/';
-const NUMBER_OF_ITERATIONS = 50; // How much times to call jobStatus
+const NUMBER_OF_ITERATIONS = 50; // The number of times we call jobStatus
 const INTERVAL = 5000; // Time between each call to jobStatus (milliseconds)
 
 // Note: customerID and customerSecretKey should never be exposed to the enduser!
@@ -40,7 +40,7 @@ function generateCommandLineWithSig(params) {
     return commandLine.substring(0, idx) + `&signature=${sig}`;
 }
 
-// Call to some API Function from the Finanda Smart Aggregation API
+// Call an API Function from the Finanda Smart Aggregation API
 // action = initiateJob / continueJob / deleteJobResult / jobStatus / jobResults / institutesAvailability / getCredentialsSchema
 // params = parameters for the action. For example, if action = initiateJob, you should send at least the the required parameters:
 // instituteID, uid, pwd, vcA, vcB - in a JSON format
@@ -122,8 +122,8 @@ function checkJobStatusAndReturnJobResults(jobID) {
                 }
             })
             .catch(function (statusResult) {
-                // If we got here it means that promise wasn't resolve, I.E., status != completed
-                // We decide that if job isn't completed in the desired limitations,
+                // If we got here it means that the promise wasn't resolve, I.E., status != completed
+                // We decide that if a job isn't completed in the desired limitations,
                 // it will be considered as an error for the client
                 if (statusResult.success === true) {
                     statusResult.success = false;
