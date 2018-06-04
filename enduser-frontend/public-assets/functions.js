@@ -34,7 +34,6 @@ $(document).ready(function()
         .then(function (data) {
             $("#connectivity_check").remove();
             $("#main_section").show();
-            $("#institutes_list").append("<option value='0'>Israeli-family Bank</option>");
             var schema = data.credentialsSchema;
             for (var key in schema) {
                 if (schema.hasOwnProperty(key)) {
@@ -68,10 +67,6 @@ $(document).ready(function()
 
 $("#institutes_list").change(function() {
     instituteCode = $("select option:selected").attr('value');
-    if (instituteCode === "0") {
-        $("#credentials_input").hide();
-        return;
-    }
     $("#credentials_input").show();
     $("#credentials_list").html('');
     var credentials = credentialsByInstituteCode[instituteCode];
@@ -138,6 +133,10 @@ $("#submit").click(function() {
                     if (json.linked_account !== undefined)
                     {
                         accountDetails.push({"Linked account": json.linked_account});
+                    }
+                    if (json.number !== undefined)
+                    {
+                        accountDetails.push({"Card number": json.number});
                     }
                     if (json.card_club !== undefined)
                     {
