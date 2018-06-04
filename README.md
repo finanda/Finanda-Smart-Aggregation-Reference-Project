@@ -10,7 +10,7 @@ This Reference Project demonstrates how to use the Finanda Smart Aggregation API
 * Server Software - Software provided by the entity to service their users, this software uses the FSA API internally for some of the services it exposes to the end-users.
 * Client Software - Software provided by the entity that runs on a end-user’s machine, it provides the user-interface to the services the entity provides.
 
-<img src="terminology.png" width="1162" />
+![alt text](terminology.png)
 
 ### Technology used
 * Server Software - The reference project uses Node.JS and the Express library to service HTTP/HTTPS requests from the user interface. Clearly any technology that can perform standard HTTPS requests can be used to connect to the FSA API - be it Java, PHP or any other applicable technology.
