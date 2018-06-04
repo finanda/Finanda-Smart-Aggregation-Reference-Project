@@ -52,7 +52,7 @@ $(document).ready(function()
             // This message is shown only because you aren't a registered customer for the FSA service
             // or your's CUSTOMER_ID and CUSTOMER_SECRET_KEY wasn't correct
             // This message should be replaced with a proper error message that can occur on you server (server.js file)
-            if (error.includes("ETIMEDOUT"))
+            if (error.includes("ETIMEDOUT") || error.includes("ECONNREFUSED"))
             {
                 $("#connectivity_check").html('<p><strong>' +
                     'You must be a registered customer for using or testing the FSA service. You can register at ' +
@@ -107,7 +107,8 @@ $("#submit").click(function() {
             $('html, body').animate({ scrollTop: $('#results_output').offset().top }, 1000); // Just a nice scroll animation
             var accountsArray = data.results;
             console.log(accountsArray);
-            $("#loading").html('This results are based on the FSA API calls the server made and returned to enduser UI<br/><br/><br/>');
+            $("#loading").html('This results are based on the FSA API calls the server made and returned to enduser UI.<br/>' +
+                '<strong>Note: </strong> More information is available in the raw response returned by the API - this reference project does not print all of the returned data.<br/><br/><br/>');
             // accountsArray is array of all accounts the enduser have
             // from this point forward you decide what to show in the enduser's UI
             var accountNum = 0;
@@ -115,60 +116,151 @@ $("#submit").click(function() {
                 // In this example we chose to handle only checking accounts,
                 // obliviously you can handle any type of account.
                 // Beware of the properties each account type have
-                if (json.hasOwnProperty('transactions') && json.type.indexOf("checking") > -1)
+                if (json.hasOwnProperty('type') && !json.hasOwnProperty('download_error'))
                 {
-                    var transactionsArray = json.transactions;
-                    if (transactionsArray.length === 0) { // No need to process an empty account
-                        return;
-                    }
-
                     $("#results_tables")
                         .append(`<table id="results_table_${accountNum}" class="table"><thead></thead><tbody></tbody></table><br/><br/>`);
 
-                    var accountDetails = [
-                        {"Account Number/Branch": `${json.number} / ${json.branch}`},
-                        {"Account Type": json.type},
-                        {"Account Balance": `${json.balance} ${json.currency}`},
-                        {"Client type": json.client_type},
-                    ];
+                    var accountDetails = [];
 
-                    var mapColumnNameToValue = function(json) {
-                        return [
-                            {"Date": json.date},
-                            {"Description": json.description},
-                            {"Debit": json.debit},
-                            {"Credit": json.credit},
-                            {"Category": json.Category},
-                        ];
-                    };
-                    var tr, columns;
-                    transactionsArray.forEach(function(json) {
+                    if (json.type !== undefined)
+                    {
+                        accountDetails.push({"Account Type": json.type});
+                    }
+                    if (json.number !== undefined && json.branch !== undefined)
+                    {
+                        accountDetails.push({"Account Number/Branch": `${json.number} / ${json.branch}`});
+                    }
+                    if (json.parent_account !== undefined)
+                    {
+                        accountDetails.push({"Parent account": json.parent_account});
+                    }
+                    if (json.linked_account !== undefined)
+                    {
+                        accountDetails.push({"Linked account": json.linked_account});
+                    }
+                    if (json.card_club !== undefined)
+                    {
+                        accountDetails.push({"Card club": json.card_club});
+                    }
+                    if (json.credit_limit !== undefined)
+                    {
+                        accountDetails.push({"Credit limit": json.credit_limit});
+                    }
+                    if (json.balance !== undefined && json.currency !== undefined)
+                    {
+                        accountDetails.push({"Account Balance": `${json.balance} ${json.currency}`});
+                    }
+                    if (json.client_type !== undefined)
+                    {
+                        accountDetails.push({"Client type": json.client_type});
+                    }
+
+                    if (json.type === "checking-ILS" || json.type === "checking-foreign") {
+                        var mapColumnNameToValue = function (json) {
+                            return [
+                                {"Date": json.date},
+                                {"Description": json.description},
+                                {"Debit": json.debit},
+                                {"Credit": json.credit},
+                                {"Category": json.Category},
+                            ];
+                        };
+                    }
+                    else if (json.type === "card") {
+                        var mapColumnNameToValue = function (json) {
+                            return [
+                                {"Date": json.date},
+                                {"Value date": json.value_date},
+                                {"Payee name": json.payee_name},
+                                {"Billing sum": json.billing_sum},
+                                {"Purchase sum": json.purchase_sum},
+                                {"Category": json.Category},
+                            ];
+                        };
+                    }
+                    else if (json.type === "loans") {
+                        var mapColumnNameToValue = function (json) {
+                            return [
+                                {"Balance": json.balance},
+                                {"Currency": json.currency},
+                                {"Upcoming payment date": json.upcoming_payment_date},
+                                {"Upcoming payment sum": json.upcoming_payment_sum},
+                            ];
+                        };
+                    }
+                    else if (json.type === "savings") {
+                        var mapColumnNameToValue = function (json) {
+                            return [
+                                {"End date": json.end_date},
+                                {"Currency": json.currency},
+                                {"Expected end value": json.expected_end_value},
+                                {"Origination date": json.origination_date},
+                                {"Value date": json.value_date}
+                            ];
+                        };
+                    }
+                    else if (json.type === "investments") {
+                        var mapColumnNameToValue = function (json) {
+                            return [
+                                {"Daily percents change": json.daily_percents_change},
+                                {"Daily value change": json.daily_value_change},
+                                {"Price": json.price},
+                                {"Purchase price": json.purchase_price},
+                                {"Quantity": json.quantity}
+                            ];
+                        };
+                    }
+
+                    if ((json.type === "checking-ILS" || json.type === "checking-foreign" || json.type === "card" || json.type === "investments")) {
+                        if (json.type === "investments")
+                        {
+                            var transactionsArray = json.securities;
+                        }
+                        else
+                        {
+                            var transactionsArray = json.transactions;
+                            if (transactionsArray.length === 0) { // No need to process an empty account
+                                return;
+                            }
+                        }
+                        var tr, columns;
+                        transactionsArray.forEach(function(json) {
+                            tr = $('<tr/>');
+                            columns = mapColumnNameToValue(json);
+                            columns.forEach(function(element) {
+                                var key = Object.keys(element)[0];
+                                tr.append(`<td>${element[key]}</td>`);
+                            });
+                            $(`#results_table_${accountNum} tbody`).append(tr);
+                        });
+                    }
+                    else if (json.type === "loans" || json.type === "savings")
+                    {
                         tr = $('<tr/>');
                         columns = mapColumnNameToValue(json);
-                        columns.forEach(function(element) {
+                        columns.forEach(function (element) {
                             var key = Object.keys(element)[0];
                             tr.append(`<td>${element[key]}</td>`);
                         });
                         $(`#results_table_${accountNum} tbody`).append(tr);
-                    });
+                    }
 
-                    accountDetails.forEach(function(element) {
+                    accountDetails.forEach(function (element) {
                         var key = Object.keys(element)[0];
                         $(`#results_table_${accountNum} thead`)
                             .append(`<tr><td colspan="${columns.length}"><strong>${key}</strong>: ${element[key]}</td></tr>`);
                     });
 
-                    columns.forEach(function(element) {
+                    columns.forEach(function (element) {
                         var key = Object.keys(element)[0];
                         $(`#results_table_${accountNum} thead`)
                             .append(`<th>${key}</th>`);
                     });
                     accountNum++;
                 }
-            });
 
-            $("#results_tables").append('<br/>\n' +
-                '<p><strong>Note: </strong>You can add here more columns which appears on the return JSON Object from <strong>jobResults</strong></p>');
+            });
         })
         .catch(function (error) {
             $("#submit").attr("disabled", false);

@@ -28,7 +28,7 @@
                     <span class="featured-content__label featured-content__label--gradient">Institute select</span>
                     <br/>
                     <label for="institutes_list">This list is automatically generated when the enduser enters this page,
-                        and fetched with your server function <strong>callGetCredentialsSchema</strong>.</label>
+                        and fetched with your server function callGetCredentialsSchema (Using the <strong>getCredentialsSchema</strong> API).</label>
                     <select id="institutes_list" class="form-control"></select>
                     <hr/>
                     <br/>
@@ -36,18 +36,18 @@
                 <div id="credentials_input" style="display: none">
                     <span class="featured-content__label featured-content__label--gradient">User credentials</span>
                     <br/>
-                    <label for="credentials_list">Please enter your bank/cc credentials</label>
+                    <label for="credentials_list">Please enter your bank or credit card credentials</label>
                     <div id="credentials_list" class="form__field-group">
                         <!--This content will be updated dynamically when the user selects the desired institute above.-->
                     </div>
                     <br/>
-                    <p><strong>Note: </strong>You can add here more parameters which is optional for <strong>initiateJob</strong></p>
+                    <p><strong>Note: </strong>Additional parameters are available here for the <strong>initiateJob</strong> API such as the requested period, including classifications etc. The full list of parameters appear in the API document.</p>
                     <hr/>
                     <br/>
                 </div>
                 <span class="featured-content__label featured-content__label--gradient">Call the API</span>
                 <p>Do some error checking and input validation (server/client side), and finally call your server function
-                    <strong>runJobAndDisplayResults</strong>.</p>
+                    <strong>runJobAndDisplayResults</strong>. You may review the progress in the console.</p>
                 <input id="submit" name="j_id_1n" type="submit" value="Submit" class="contact-form__btn btn">
                 <hr/>
                 <br/>
