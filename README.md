@@ -17,7 +17,7 @@ This Reference Project demonstrates how to use the Finanda Smart Aggregation API
 ### Workflow
 The End-user interface (enduser-frontend) is implemented using a basic html form. Download credentials are collected and sent to the Customer’s server (server-backend).
 
-server.js implements a simple http server (using Express), requests from the end-user are processed and the appropriate API calls are used. For example, the credentials parameters (user id, password etc..) are signed using the customer-id and customer-secret-key and sent to the FSA API calls to initiate jobs against the select financial institute.
+server.js implements a simple http server (using Express), requests from the end-user are processed and the appropriate API calls are used. For example, the credentials parameters (user id, password etc..) are signed using the customer-id and customer-secret-key and sent to the FSA API calls to initiate jobs against the selected financial institute.
 
 The code demonstrates how to check for job results - checking for download job progress, finding out if the job succeeded and how to retrieve and handle the results (e.g. - storing to a database or sending the results back to the end-user).
 
@@ -28,11 +28,11 @@ The code demonstrates how to check for job results - checking for download job p
 and get your customer information: `CUSTOMER_ID` and `CUSTOMER_SECRET_KEY`
 2. Download or clone this repository to your local machine, assuming on `project-path`.
 3. Open `project-path/server-backend/server.js` and look for `TODO_FILL_CUSTOMER_ID` and `TODO_FILL_SECRET_KEY`.
-Change accordingly with `CUSTOMER_ID` and `CUSTOMER_SECRET_KEY` you got from step 1.
+Change accordingly with `CUSTOMER_ID` and `CUSTOMER_SECRET_KEY` you got from step 1. It is advised not to hardcode your secret key in production.
 4. Open an command line and run `node project-path/server-backend/server.js`.
 5. Open http://localhost:5000 in your browser.
 
-### Recommended settings
+### Recommended Project Settings (Dev)
 We strongly recommend using this settings: (appear on `server-backend/server.js`):
 ```javascript
 const PORT = 5000;
