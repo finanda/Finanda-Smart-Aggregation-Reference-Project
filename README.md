@@ -1,6 +1,7 @@
-# Finanda Smart Aggregation Reference Project
-<img class="color" src="https://cdn.finanda.co.il/websites/img/logo--finanda-inovations-new.svg" alt="Finanda Innovations" width="150">
+<p align="center">
+<img class="color" src="https://cdn.finanda.co.il/websites/img/logo--finanda-inovations-new.svg" alt="Finanda Innovations" width="150"></p>
 
+# Finanda Smart Aggregation Reference Project
 This Reference Project demonstrates how to use the Finanda Smart Aggregation API.
 
 ## Introduction
